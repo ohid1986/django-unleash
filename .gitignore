@@ -1,7 +1,8 @@
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
-
+__pycache__
+/organizer/__pycache__/
 # Folder config file
 Desktop.ini
 
@@ -13,10 +14,11 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-
+db.sqlite3
+/.ipynb_checkpoints/
 # Windows shortcuts
 *.lnk
-
+Untitled.ipynb
 # =========================
 # Operating System Files
 # =========================
