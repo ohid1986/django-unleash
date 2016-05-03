@@ -27,8 +27,9 @@ from django.http.response import HttpResponse
 # replaced with following codes
 
 from django.shortcuts import (
-    get_object_or_404, render)
+    get_object_or_404, redirect, render)
 
+from .forms import TagForm
 from .models import Startup, Tag
 
 
@@ -46,6 +47,19 @@ def startup_list(request):
         request,
         'organizer/startup_list.html',
         {'startup_list': Startup.objects.all()})
+
+def tag_create(request):
+    if request.method == 'POST':
+        form = TagForm(request.POST) # bind data to form
+        if form.is_valid(): # if the data is valid:
+            new_tag = form.save() # create new object from data
+            return redirect(new_tag) # show webpage for new object
+    else: # request.method != 'POST'
+        form = TagForm()
+        return render(request,
+        'organizer/tag_form.html',
+        {'form': form}) # show bound HTML form (with errors)
+
 
 
 def tag_detail(request, slug):
