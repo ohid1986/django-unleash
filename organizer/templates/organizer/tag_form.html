@@ -2,20 +2,19 @@
 
 {% block title %}
 {{ block.super }} - Create Tag
-{% endblock title %}
+{% endblock %}
 
 {% block content %}
+  <div>
     <div>
-        <div>
-        <form
-              action="{% url 'organizer_tag_create' %}"
-              method="post">
-            {% csrf_token %}
-              {{ form.as_p }}
-            <button type="submit">
-              Create Tag</button>
-        </form>
-        </div>
+      <form
+          action="{% url 'organizer_tag_create' %}"
+          method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+          Create Tag</button>
+      </form>
     </div>
-
-{% endblock content %}
+  </div>
+{% endblock %}

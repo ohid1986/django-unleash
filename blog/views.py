@@ -1,9 +1,12 @@
-from django.shortcuts import ( get_object_or_404, redirect, render)
-from django.views.decorators.http import require_http_methods
+from django.shortcuts import (
+    get_object_or_404, redirect, render)
+from django.views.decorators.http import \
+    require_http_methods
 from django.views.generic import View
 
 from .forms import PostForm
 from .models import Post
+
 
 class PostCreate(View):
     form_class = PostForm
@@ -25,6 +28,7 @@ class PostCreate(View):
                 request,
                 self.template_name,
                 {'form': bound_form})
+
 
 class PostDelete(View):
 
@@ -61,20 +65,6 @@ def post_detail(request, year, month, slug):
         'blog/post_detail.html',
         {'post': post})
 
-# def post_list(request):
-#     return render(
-#         request,
-#         'blog/post_list.html',
-#         {'post_list': Post.objects.all()})
-
-# class PostList(View):
-#     template_name = 'blog/post_list.html'
-#
-#     def get(self, request):
-#         return render(
-#             request,
-#             self.template_name,
-#             {'post_list': Post.objects.all()})
 
 class PostList(View):
 
@@ -83,6 +73,7 @@ class PostList(View):
             request,
             'blog/post_list.html',
             {'post_list': Post.objects.all()})
+
 
 class PostUpdate(View):
     form_class = PostForm

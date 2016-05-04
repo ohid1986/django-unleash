@@ -2,7 +2,7 @@
 
 {% block title %}
 {{ block.super }} - {{ post.title|title }}
-{% endblock title %}
+{% endblock %}
 
 {% block content %}
 <article>
@@ -13,13 +13,15 @@
         <li>
           <a href="{{ post.get_update_url }}">
             Edit Post</a></li>
-          <li>
+        <li>
           <a href="{{ post.get_delete_url }}">
             Delete Post</a></li>
       </ul>
       <p>
         Written on
-        <time datetime="{{ post.pub_date|date:"Y-m-d" }}">{{ post.pub_date|date:"l, F j, Y" }}</time>
+        <time datetime="{{ post.pub_date|date:"Y-m-d" }}">
+          {{ post.pub_date|date:"l, F j, Y" }}
+        </time>
       </p>
     </header>
 
@@ -58,4 +60,4 @@
   {% endif %}
 
 </article>
-{% endblock content %}
+{% endblock %}
