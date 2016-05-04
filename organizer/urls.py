@@ -1,14 +1,11 @@
 from django.conf.urls import url
 
 from .views import (
-    NewsLinkCreate, NewsLinkDelete, NewsLinkUpdate, StartupCreate,
-    StartupUpdate, TagCreate, TagUpdate,
-    startup_detail, startup_list, tag_detail,
-    tag_list)
-# url(regular_expression,
-# view,
-# optional_dictionary_of_extra_values,
-# name=a_name)
+    NewsLinkCreate, NewsLinkDelete,
+    NewsLinkUpdate, StartupCreate, StartupDelete,
+    StartupUpdate, TagCreate, TagDelete,
+    TagUpdate, startup_detail, startup_list,
+    tag_detail, tag_list)
 
 urlpatterns = [
     url(r'^newslink/create/$',
@@ -25,10 +22,13 @@ urlpatterns = [
         name='organizer_startup_list'),
     url(r'^startup/create/$',
         StartupCreate.as_view(),
-        name = 'organizer_startup_create'),
+        name='organizer_startup_create'),
     url(r'^startup/(?P<slug>[\w\-]+)/$',
         startup_detail,
         name='organizer_startup_detail'),
+    url(r'^startup/(?P<slug>[\w\-]+)/delete/$',
+        StartupDelete.as_view(),
+        name='organizer_startup_delete'),
     url(r'^startup/(?P<slug>[\w\-]+)/update/$',
         StartupUpdate.as_view(),
         name='organizer_startup_update'),
@@ -41,6 +41,9 @@ urlpatterns = [
     url(r'^tag/(?P<slug>[\w\-]+)/$',
         tag_detail,
         name='organizer_tag_detail'),
+    url(r'^tag/(?P<slug>[\w-]+)/delete/$',
+        TagDelete.as_view(),
+        name='organizer_tag_delete'),
     url(r'^tag/(?P<slug>[\w\-]+)/update/$',
         TagUpdate.as_view(),
         name='organizer_tag_update'),

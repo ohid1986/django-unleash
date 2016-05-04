@@ -1,31 +1,48 @@
-from django.db import models
 from django.core.urlresolvers import reverse
+from django.db import models
 
-# Create your models here.
+
+# Model Field Reference
+# https://docs.djangoproject.com/en/1.8/ref/models/fields/
+
 
 class Tag(models.Model):
-    name = models.CharField(max_length=31, unique=True)
-    slug = models.SlugField(max_length=31, unique=True,
+    name = models.CharField(
+        max_length=31, unique=True)
+    slug = models.SlugField(
+        max_length=31,
+        unique=True,
         help_text='A label for URL config.')
-
-    def __str__(self):
-        return self.name.title()
 
     class Meta:
         ordering = ['name']
 
+    def __str__(self):
+        return self.name.title()
+
     def get_absolute_url(self):
         return reverse('organizer_tag_detail',
                        kwargs={'slug': self.slug})
+
+    def get_delete_url(self):
+        return reverse('organizer_tag_delete',
+                       kwargs={'slug': self.slug})
+
     def get_update_url(self):
         return reverse('organizer_tag_update',
                        kwargs={'slug': self.slug})
 
+
 class Startup(models.Model):
-    name = models.CharField(max_length=31, db_index=True)
-    slug = models.SlugField(max_length=31, unique=True, help_text='A label for URL config.')
+    name = models.CharField(
+        max_length=31, db_index=True)
+    slug = models.SlugField(
+        max_length=31,
+        unique=True,
+        help_text='A label for URL config.')
     description = models.TextField()
-    founded_date = models.DateField('date founded')
+    founded_date = models.DateField(
+        'date founded')
     contact = models.EmailField()
     website = models.URLField(max_length=255)
     tags = models.ManyToManyField(Tag)
@@ -41,9 +58,14 @@ class Startup(models.Model):
         return reverse('organizer_startup_detail',
                        kwargs={'slug': self.slug})
 
+    def get_delete_url(self):
+        return reverse('organizer_startup_delete',
+                       kwargs={'slug': self.slug})
+
     def get_update_url(self):
         return reverse('organizer_startup_update',
                        kwargs={'slug': self.slug})
+
 
 class NewsLink(models.Model):
     title = models.CharField(max_length=63)
@@ -57,7 +79,8 @@ class NewsLink(models.Model):
         get_latest_by = 'pub_date'
 
     def __str__(self):
-        return "{}:{}".format(self.startup, self.title)
+        return "{}: {}".format(
+            self.startup, self.title)
 
     def get_absolute_url(self):
         return self.startup.get_absolute_url()
