@@ -19,13 +19,9 @@ class Post(models.Model):
         'date published',
         auto_now_add=True)
     tags = models.ManyToManyField(
-        Tag,
-        blank=True,
-        related_name='blog_posts')
+        Tag, related_name='blog_posts')
     startups = models.ManyToManyField(
-        Startup,
-        blank=True,
-        related_name='blog_posts')
+        Startup, related_name='blog_posts')
 
     class Meta:
         verbose_name = 'blog post'
